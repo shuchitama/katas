@@ -12,21 +12,22 @@ the infinite string. There are 4 occurrences of a in the substring.
 */
 
 function repeatedString(s, n) {
-	let string = s;
-	if (s === "a") {
-		return n;
-	}
-	if (string.length < n) {
-		while (string.length < n) {
-			string = string + s;
-		}
-	}
-	if (string.length > 10) {
-		string = string.slice(0, 10);
-	}
+	// full string repetitions:
+	const whole = Math.floor(n / s.length);
 
-	console.log(string);
-	return string.split("").filter((item) => item === "a").length;
+	// potential partial string at the end
+	const partial = s.slice(0, n % s.length);
+
+	//number of "a"s in whole string
+	const numOfAInWhole = s.split("").filter((item) => item === "a").length;
+
+	//number of "a"s in partial string
+	const partialCount = partial.split("").filter((item) => item === "a").length;
+
+	// total number of "a"s
+	return numOfAInWhole * whole + partialCount;
 }
 
 console.log(repeatedString("a", 1000000000000));
+console.log(repeatedString("abcd", 10));
+console.log(repeatedString("aaca", 10));
